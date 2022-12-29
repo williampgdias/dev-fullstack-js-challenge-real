@@ -1,0 +1,29 @@
+.form {
+  max-width: 700px;
+}
+
+.form-group {
+  margin-top: 15px;
+  border: 1px solid gray;
+  height: 40px;
+  display: flex;
+}
+
+.form-group label {
+  width: 150px;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  border: none;
+  border-left: 1px solid gray;
+}
+
+.form .actions {
+  margin-top: 20px;
+  text-align: right;
+}
