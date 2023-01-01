@@ -23,4 +23,11 @@ module.exports = [
     cpf: '939.393.169-65',
     ra: '90366',
   },
+
+  {
+    nome: 'Zeiry Dias',
+    email: 'zeirydias2010@gmail.com',
+    cpf: '155.902.001-79',
+    ra: '90111',
+  },
 ];

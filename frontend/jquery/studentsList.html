@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <nav class="main-nav">
+  <!-- <nav class="main-nav">
     <header>
       Módulo Acadêmico
     </header>
@@ -20,7 +20,7 @@
         <li>Alunos</li>
       </a>
     </ul>
-  </nav>
+  </nav> -->
 
   <section class="container">
     <header class="main-header">
@@ -36,7 +36,7 @@
           <button>Cadastrar aluno</button>
         </div>
 
-        <table class="table-list">
+        <table id="studentList" class="table-list">
           <thead>
             <tr>
               <th>Registro Acadêmico</th>
@@ -46,47 +46,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1939 </td>
-              <td>Aluno um</td>
-              <td>156.385.941-90</td>
-              <td>
-                <a href="#">Editar</a>
-                <a href="#">Excluir</a>
-              </td>
-            </tr>
-            <tr>
-              <td>3938</td>
-              <td>Aluno dois</td>
-              <td>467.142.980-65</td>
-              <td>
-                <a href="#">Editar</a>
-                <a href="#">Excluir</a>
-              </td>
-            </tr>
-            <tr>
-              <td>3383 </td>
-              <td>Aluno três</td>
-              <td>439.631.111-20</td>
-              <td>
-                <a href="#">Editar</a>
-                <a href="#">Excluir</a>
-              </td>
-            </tr>
-            <tr>
-              <td>3500 </td>
-              <td>Aluno quatro</td>
-              <td>576.113.702-43</td>
-              <td>
-                <a href="#">Editar</a>
-                <a href="#">Excluir</a>
-              </td>
-            </tr>
+
           </tbody>
         </table>
       </div>
     </div>
   </section>
+
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <script src="js/studentsList.js"></script>
 </body>
 
 </html>
