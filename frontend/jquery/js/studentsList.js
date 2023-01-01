@@ -16,11 +16,14 @@ function fetchStudentList() {
             <td>${student.nome}</td>
             <td>${student.cpf}</td>
             <td>
-              <a href="#">Editar</a>
-              <a href="#">Excluir</a>
+            <a href="studentManager.html?ra=${student.ra}">Editar</a>
+            <a href="#">Excluir</a>
             </td>
-          </tr>
-        `);
+            </tr>
+            `);
       });
+
+      $('.loader').hide('fast');
+      $('.content-page').show('slow');
     });
 }

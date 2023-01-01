@@ -10,14 +10,18 @@ app.get('/', function (req, res) {
 });
 
 app.get('/students/list', function (req, res) {
-  res.send(database);
+  setTimeout(function () {
+    res.send(database);
+  }, 2000);
 });
 
 app.get('/students/find/:ra', function (req, res) {
   const studentFound = database.find(function (student) {
     return student.ra == req.params.ra;
   });
-  res.send(studentFound);
+  setTimeout(function () {
+    res.send(studentFound);
+  }, 2000);
 });
 
 app.listen(3000);
