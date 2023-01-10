@@ -9,6 +9,10 @@ $(document).ready(function () {
       deleteStudent(ra);
     }
   });
+  $('#formSearchStudent').submit((event) => {
+    event.preventDefault();
+    fetchStudentList(event.target.searchInput.value);
+  });
 });
 
 const deleteStudent = (ra) => {
@@ -24,11 +28,11 @@ const deleteStudent = (ra) => {
     });
 };
 
-function fetchStudentList() {
+function fetchStudentList(searchQuery = '') {
   $('.loader').show('fast');
-  $('.content-page').hide('slow');
+  $('.content-page').hide();
 
-  fetch('http://localhost:3000/students/list')
+  fetch(`http://localhost:3000/students/list/${searchQuery}`)
     .then((response) => {
       return response.json();
     })

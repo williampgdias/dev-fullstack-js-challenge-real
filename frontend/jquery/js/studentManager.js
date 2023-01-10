@@ -1,5 +1,6 @@
 $(document).ready(function () {
   if (isEditingMode()) {
+    setReadOnlyFields();
     fetchStudent();
   } else {
     $('.loader').hide();
@@ -46,7 +47,13 @@ $(document).ready(function () {
   });
 });
 
-function fetchStudent(ra) {
+function setReadOnlyFields() {
+  const studentForm = $('#studentForm');
+  studentForm.find('#ra').attr('disabled', true);
+  studentForm.find('#cpf').attr('disabled', true);
+}
+
+function fetchStudent() {
   fetch(`http://localhost:3000/students/find/${getRAFromUrl()}`)
     .then(function (response) {
       return response.json();
