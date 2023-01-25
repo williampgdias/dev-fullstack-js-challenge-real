@@ -42,7 +42,6 @@ $(document).ready(function () {
       .then((data) => {
         alert(data.message);
         document.location.href = 'studentsList.html';
-        console.log(data);
       });
   });
 });
