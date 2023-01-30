@@ -5,7 +5,7 @@ const Navbar = () => {
     <nav className='main-nav'>
       <header>Módulo Acadêmico</header>
       <ul className='nav-links'>
-        <a className='nav-item' href='studentsList.html'>
+        <a className='nav-item' href='/#'>
           <li>Alunos</li>
         </a>
       </ul>

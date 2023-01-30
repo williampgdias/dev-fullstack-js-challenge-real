@@ -44,8 +44,6 @@
   margin-right: 10px;
 }
 
-
-
 .container {
   width: 100%;
 }
@@ -85,35 +83,4 @@
 
 .display-none {
   display: none;
-}
-
-/* 
-  STUDENT LIST 
-*/
-
-.content-page .top-actions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.content-page .table-list {
-  margin-top: 20px;
-  width: 100%;
-  text-align: center;
-  border-collapse: collapse;
-  border: 1px solid #dee2e6;
-}
-
-.content-page .table-list thead {
-  background-color: #21252980;
-  color: #fff;
-}
-
-.content-page .table-list tr {
-  height: 50px;
-}
-
-.content-page .table-list tbody tr:nth-child(even) {
-  background: #ccc;
 }
