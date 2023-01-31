@@ -6,27 +6,53 @@ class StudentListPage extends React.Component {
     super(props);
     this.state = {
       studentList: [],
+      isLoading: true,
+      formSearch: {
+        searchInput: '',
+      },
     };
   }
 
   componentDidMount() {
-    console.log('componentDidMount WAS CALLED');
     this.fetchStudentList();
   }
 
+  onClickRemoveStudent = (ra) => {
+    const confirmation = window.confirm('você realmente deseja excluir esse estudante?');
+
+    if (confirmation) {
+      this.deleteStudent(ra);
+    }
+  };
+
+  deleteStudent = (ra) => {
+    this.setState({ isLoading: true });
+    fetch(`http://localhost:3006/students/delete/${ra}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        alert(data.message);
+        this.fetchStudentList();
+      });
+  };
+
+  onSubmitFormSearch = (event) => {
+    event.preventDefault();
+    this.fetchStudentList(event.target.searchInput.value);
+  };
+
   fetchStudentList = (searchQuery = '') => {
-    //   $('.loader').show('fast');
-    //   $('.content-page').hide();
+    this.setState({ isLoading: true });
 
     fetch(`http://localhost:3006/students/list/${searchQuery}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        this.setState({ studentList: data });
-
-        //   $('.loader').hide('fast');
-        //   $('.content-page').show('slow');
+        this.setState({ studentList: data, isLoading: false });
       })
       .catch((error) => {
         alert('Desculpe, mas não conseguimos estabelecer conexão com o nosso servidor.');
@@ -34,12 +60,27 @@ class StudentListPage extends React.Component {
   };
 
   render() {
-    console.log('RENDER WAS CALLED');
+    if (this.state.isLoading) {
+      return <div className='loader'></div>;
+    }
+
     return (
       <div className='padding-left-right-20'>
         <div className='top-actions'>
-          <form id='formSearchStudent' className='form-search'>
-            <input type='text' name='searchInput' id='searchInput' />
+          <form onSubmit={this.onSubmitFormSearch} id='formSearchStudent' className='form-search'>
+            <input
+              type='text'
+              name='searchInput'
+              id='searchInput'
+              value={this.state.formSearch.searchInput}
+              onChange={(event) => {
+                this.setState({
+                  formSearch: {
+                    searchInput: event.target.value,
+                  },
+                });
+              }}
+            />
             <button>Pesquisar</button>
           </form>
           <a className='btn btn-dark' href='studentManager.html'>
@@ -59,13 +100,19 @@ class StudentListPage extends React.Component {
           <tbody>
             {this.state.studentList.map((student) => {
               return (
-                <tr>
+                <tr key={student.ra}>
                   <td>{student.ra}</td>
                   <td>{student.nome}</td>
                   <td>{student.cpf}</td>
                   <td>
                     <a href={`studentManager.html?ra=${student.ra}`}>Editar</a>
-                    <a className='removeStudent' data-ra={student.ra} href='/#'>
+                    <a
+                      className='removeStudent'
+                      onClick={() => {
+                        this.onClickRemoveStudent(student.ra);
+                      }}
+                      href='/#'
+                    >
                       Excluir
                     </a>
                   </td>
