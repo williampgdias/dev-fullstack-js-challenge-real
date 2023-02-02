@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 
 import Loader from '../../shared/Loader';
+import { Link } from 'react-router-dom';
 
 class StudentListPage extends React.Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class StudentListPage extends React.Component {
 
   render() {
     if (this.state.isLoading) {
-      return <Loader />
+      return <Loader />;
     }
 
     return (
@@ -87,9 +88,9 @@ class StudentListPage extends React.Component {
               />
               <button>Pesquisar</button>
             </form>
-            <a className='btn btn-dark' href='/student/add'>
+            <Link to='/student/add' className='btn btn-dark'>
               Cadastrar aluno
-            </a>
+            </Link>
           </div>
 
           <table id='studentList' className='table-list'>
@@ -109,7 +110,7 @@ class StudentListPage extends React.Component {
                     <td>{student.nome}</td>
                     <td>{student.cpf}</td>
                     <td>
-                      <a href={`/student/edit/${student.ra}`}>Editar</a>
+                      <Link to={`/student/edit/${student.ra}`}>Editar</Link>
                       <a
                         className='removeStudent'
                         onClick={() => {

@@ -3,9 +3,12 @@ import './style.css';
 import { useState } from 'react';
 
 import Loader from '../../shared/Loader';
+import { Navigate, Link } from 'react-router-dom';
 
 const StudentManagerPage = () => {
-  const [isLoading, updateIsLoading] = useState(false);
+  const [isRedirect, setIsRedirect] = useState(false);
+  const [isLoading] = useState(false);
+
   const [name, updateName] = useState('');
   const [email, updateEmail] = useState('');
   const [cpf, updateCpf] = useState('');
@@ -28,8 +31,6 @@ const StudentManagerPage = () => {
       cpf,
       email,
     };
-
-    console.log(body);
 
     let methodEndpoint;
     let urlEndpoint;
@@ -56,10 +57,14 @@ const StudentManagerPage = () => {
       .then((data) => {
         alert(data.message);
         if (data.result) {
-          document.location.href = '/';
+          setIsRedirect(true);
         }
       });
   };
+
+  if (isRedirect) {
+    return <Navigate to='/' />;
+  }
 
   if (isLoading) {
     return <Loader />;
@@ -128,9 +133,9 @@ const StudentManagerPage = () => {
             />
           </div>
           <div className='actions'>
-            <a href='studentsList.html' type='button' className='btn btn-danger margin-right-10'>
+            <Link to='/' type='button' className='btn btn-danger margin-right-10'>
               Cancelar
-            </a>
+            </Link>
             <button className='btn'>Salvar</button>
           </div>
         </form>
