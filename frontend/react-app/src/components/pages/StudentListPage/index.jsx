@@ -65,93 +65,68 @@ class StudentListPage extends React.Component {
     }
 
     return (
-      <div className='padding-left-right-20'>
-        <div className='top-actions'>
-          <form onSubmit={this.onSubmitFormSearch} id='formSearchStudent' className='form-search'>
-            <input
-              type='text'
-              name='searchInput'
-              id='searchInput'
-              value={this.state.formSearch.searchInput}
-              onChange={(event) => {
-                this.setState({
-                  formSearch: {
-                    searchInput: event.target.value,
-                  },
-                });
-              }}
-            />
-            <button>Pesquisar</button>
-          </form>
-          <a className='btn btn-dark' href='/student-manager'>
-            Cadastrar aluno
-          </a>
-        </div>
+      <>
+        <header className='main-header'>Lista de Alunos</header>
+        <div className='padding-left-right-20'>
+          <div className='top-actions'>
+            <form onSubmit={this.onSubmitFormSearch} id='formSearchStudent' className='form-search'>
+              <input
+                type='text'
+                name='searchInput'
+                id='searchInput'
+                value={this.state.formSearch.searchInput}
+                onChange={(event) => {
+                  this.setState({
+                    formSearch: {
+                      searchInput: event.target.value,
+                    },
+                  });
+                }}
+              />
+              <button>Pesquisar</button>
+            </form>
+            <a className='btn btn-dark' href='/student/add'>
+              Cadastrar aluno
+            </a>
+          </div>
 
-        <table id='studentList' className='table-list'>
-          <thead>
-            <tr>
-              <th>Registro Acadêmico</th>
-              <th>Nome</th>
-              <th>CPF</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.studentList.map((student) => {
-              return (
-                <tr key={student.ra}>
-                  <td>{student.ra}</td>
-                  <td>{student.nome}</td>
-                  <td>{student.cpf}</td>
-                  <td>
-                    <a href={`studentManager.html?ra=${student.ra}`}>Editar</a>
-                    <a
-                      className='removeStudent'
-                      onClick={() => {
-                        this.onClickRemoveStudent(student.ra);
-                      }}
-                      href='/#'
-                    >
-                      Excluir
-                    </a>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+          <table id='studentList' className='table-list'>
+            <thead>
+              <tr>
+                <th>Registro Acadêmico</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.studentList.map((student) => {
+                return (
+                  <tr key={student.ra}>
+                    <td>{student.ra}</td>
+                    <td>{student.nome}</td>
+                    <td>{student.cpf}</td>
+                    <td>
+                      <a href={`/student/edit/${student.ra}`}>Editar</a>
+                      <a
+                        className='removeStudent'
+                        onClick={() => {
+                          this.onClickRemoveStudent(student.ra);
+                        }}
+                        href='/#'
+                      >
+                        Excluir
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </>
     );
   }
 }
-
-// const StudentListPage = () => {
-//   return (
-//     <div className='padding-left-right-20'>
-//       <div className='top-actions'>
-//         <form id='formSearchStudent' className='form-search'>
-//           <input type='text' name='searchInput' id='searchInput' />
-//           <button>Pesquisar</button>
-//         </form>
-//         <a className='btn btn-dark' href='studentManager.html'>
-//           Cadastrar aluno
-//         </a>
-//       </div>
-
-//       <table id='studentList' className='table-list'>
-//         <thead>
-//           <tr>
-//             <th>Registro Acadêmico</th>
-//             <th>Nome</th>
-//             <th>CPF</th>
-//             <th>Ações</th>
-//           </tr>
-//         </thead>
-//         <tbody></tbody>
-//       </table>
-//     </div>
-//   );
-// };
 
 export default StudentListPage;
