@@ -21,6 +21,7 @@
   width: 100%;
   border: none;
   border-left: 1px solid gray;
+  padding-left: 10px;
 }
 
 .form .actions {

@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css';
 
+import Loader from '../../shared/Loader';
+
 class StudentListPage extends React.Component {
   constructor(props) {
     super(props);
@@ -61,7 +63,7 @@ class StudentListPage extends React.Component {
 
   render() {
     if (this.state.isLoading) {
-      return <div className='loader'></div>;
+      return <Loader />
     }
 
     return (
