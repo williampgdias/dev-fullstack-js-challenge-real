@@ -24,3 +24,7 @@
 .content-page .table-list tbody tr:nth-child(even) {
   background: #ccc;
 }
+
+.removeStudent {
+  margin-left: 10px;
+}

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 import Loader from '../../shared/Loader';
 import { Navigate, Link, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const StudentManagerPage = () => {
   const { id } = useParams();
@@ -13,8 +14,14 @@ const StudentManagerPage = () => {
 
   const [name, updateName] = useState('');
   const [email, updateEmail] = useState('');
-  const [cpf, updateCpf] = useState('');
-  const [ra, updateRa] = useState('');
+  const [fieldCpf, updateFieldCpf] = useState({
+    value: '',
+    isDisabled: false,
+  });
+  const [fieldRa, updateFieldRa] = useState({
+    value: '',
+    isDisabled: false,
+  });
 
   const fetchStudent = () => {
     updateIsLoading(true);
@@ -25,8 +32,14 @@ const StudentManagerPage = () => {
       .then(function (data) {
         updateName(data.nome);
         updateEmail(data.email);
-        updateCpf(data.cpf);
-        updateRa(data.ra);
+        updateFieldCpf({
+          isDisabled: true,
+          value: data.cpf,
+        });
+        updateFieldRa({
+          isDisabled: true,
+          value: data.ra,
+        });
         updateIsLoading(false);
       });
   };
@@ -42,8 +55,8 @@ const StudentManagerPage = () => {
 
     const body = {
       name,
-      ra,
-      cpf,
+      ra: fieldRa.value,
+      cpf: fieldCpf.value,
       email,
     };
 
@@ -70,9 +83,11 @@ const StudentManagerPage = () => {
         return response.json();
       })
       .then((data) => {
-        alert(data.message);
         if (data.result) {
+          Swal.fire('Parabéns', data.message, 'success');
           setIsRedirect(true);
+        } else {
+          Swal.fire('Desculpe...', data.message, 'error');
         }
       });
   };
@@ -126,10 +141,14 @@ const StudentManagerPage = () => {
               type='number'
               name='ra'
               id='ra'
-              value={ra}
+              value={fieldRa.value}
+              disabled={fieldRa.isDisabled}
               placeholder='Digite seu RA'
               onChange={(event) => {
-                updateRa(event.target.value);
+                updateFieldRa({
+                  ...fieldRa,
+                  value: event.target.value,
+                });
               }}
             />
           </div>
@@ -140,10 +159,14 @@ const StudentManagerPage = () => {
               type='number'
               name='cpf'
               id='cpf'
-              value={cpf}
+              value={fieldCpf.value}
+              disabled={fieldCpf.isDisabled}
               placeholder='Digite seu CPF'
               onChange={(event) => {
-                updateCpf(event.target.value);
+                updateFieldCpf({
+                  ...fieldCpf,
+                  value: event.target.value,
+                });
               }}
             />
           </div>

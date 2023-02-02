@@ -4,6 +4,7 @@ import './style.css';
 import Loader from '../../shared/Loader';
 import { Link } from 'react-router-dom';
 
+import Swal from 'sweetalert2';
 class StudentListPage extends React.Component {
   constructor(props) {
     super(props);
@@ -21,10 +22,25 @@ class StudentListPage extends React.Component {
   }
 
   onClickRemoveStudent = (ra) => {
+    Swal.fire({
+      title: 'você realmente deseja excluir esse estudante?',
+      text: 'Você não poderá reverter isso!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('O estudante foi deletado com sucesso.');
+      }
+      this.deleteStudent(ra);
+    });
+    return;
+
     const confirmation = window.confirm('você realmente deseja excluir esse estudante?');
 
     if (confirmation) {
-      this.deleteStudent(ra);
     }
   };
 
@@ -37,7 +53,11 @@ class StudentListPage extends React.Component {
         return response.json();
       })
       .then((data) => {
-        alert(data.message);
+        Swal.fire({
+          icon: 'success',
+          title: 'Parabéns',
+          text: data.message,
+        });
         this.fetchStudentList();
       });
   };
