@@ -1,26 +1,41 @@
 import './style.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Loader from '../../shared/Loader';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link, useParams } from 'react-router-dom';
 
 const StudentManagerPage = () => {
+  const { id } = useParams();
+
   const [isRedirect, setIsRedirect] = useState(false);
-  const [isLoading] = useState(false);
+  const [isLoading, updateIsLoading] = useState(false);
 
   const [name, updateName] = useState('');
   const [email, updateEmail] = useState('');
   const [cpf, updateCpf] = useState('');
   const [ra, updateRa] = useState('');
 
-  const isEditingMode = () => {
-    return false;
+  const fetchStudent = () => {
+    updateIsLoading(true);
+    fetch(`http://localhost:3006/students/find/${id}}`)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        updateName(data.nome);
+        updateEmail(data.email);
+        updateCpf(data.cpf);
+        updateRa(data.ra);
+        updateIsLoading(false);
+      });
   };
 
-  const getRAFromUrl = () => {
-    return 0;
-  };
+  useEffect(() => {
+    if (id) {
+      fetchStudent();
+    }
+  }, []);
 
   const onSubmitForm = (event) => {
     event.preventDefault();
@@ -35,9 +50,9 @@ const StudentManagerPage = () => {
     let methodEndpoint;
     let urlEndpoint;
 
-    if (isEditingMode()) {
+    if (id) {
       methodEndpoint = 'PUT';
-      urlEndpoint = `http://localhost:3006/students/edit/${getRAFromUrl()}`;
+      urlEndpoint = `http://localhost:3006/students/edit/${id}`;
     } else {
       methodEndpoint = 'POST';
       urlEndpoint = 'http://localhost:3006/students/save';

@@ -6,6 +6,7 @@ import Navbar from './components/shared/Navbar';
 // COMPONENTS PAGE
 import StudentListPage from './components/pages/StudentListPage';
 import StudentManagerPage from './components/pages/StudentManagerPage';
+import PageNotFound from './components/pages/PageNotFound';
 
 // ROUTER
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -21,7 +22,8 @@ function App() {
             <Routes>
               <Route path='/' element={<StudentListPage />} />
               <Route path='/student/add' element={<StudentManagerPage />} />
-              <Route path='/student/edit/:ra' element={<StudentManagerPage />} />
+              <Route path='/student/edit/:id' element={<StudentManagerPage />} />
+              <Route path='*' element={<PageNotFound />} />
             </Routes>
           </div>
         </section>
