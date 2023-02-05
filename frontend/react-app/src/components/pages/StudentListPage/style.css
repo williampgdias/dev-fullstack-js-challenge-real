@@ -1,7 +1,11 @@
-.content-page .top-actions {
+.content-page .card {
   margin-top: 20px;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 }
 
 .content-page .table-list {
@@ -9,22 +13,52 @@
   width: 100%;
   text-align: center;
   border-collapse: collapse;
-  border: 1px solid #dee2e6;
 }
 
-.content-page .table-list thead {
-  background-color: #21252980;
-  color: #fff;
+.content-page .table-list .action-link {
+  text-transform: lowercase;
+  margin-left: 20px;
+  font-weight: bold;
 }
 
-.content-page .table-list tr {
+.content-page .table-list thead tr {
   height: 50px;
+  border-top: 1px solid #e9ecef;
+  border-bottom: 3px solid #e9ecef;
 }
 
-.content-page .table-list tbody tr:nth-child(even) {
-  background: #ccc;
+.content-page .table-list tbody tr {
+  height: 40px;
+  border-top: 1px solid #e9ecef;
 }
 
-.removeStudent {
-  margin-left: 10px;
+.content-page .table-list tbody tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.content-page .form-search {
+  display: flex;
+  border: 1px solid #ced4da;
+  height: 40px;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.content-page .form-search input {
+  border: 0px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.content-page .form-search button {
+  border: 0px;
+  border-left: 1px solid #ced4da;
+  height: 100%;
+  width: 140px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }

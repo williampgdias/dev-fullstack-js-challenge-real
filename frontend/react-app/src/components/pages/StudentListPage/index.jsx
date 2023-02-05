@@ -36,12 +36,6 @@ class StudentListPage extends React.Component {
       }
       this.deleteStudent(ra);
     });
-    return;
-
-    const confirmation = window.confirm('você realmente deseja excluir esse estudante?');
-
-    if (confirmation) {
-    }
   };
 
   deleteStudent = (ra) => {
@@ -68,6 +62,7 @@ class StudentListPage extends React.Component {
   };
 
   fetchStudentList = (searchQuery = '') => {
+    console.log(searchQuery);
     this.setState({ isLoading: true });
 
     fetch(`http://localhost:3006/students/list/${searchQuery}`)
@@ -75,7 +70,7 @@ class StudentListPage extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({ studentList: data, isLoading: false });
+        this.setState({ studentList: data, isLoading: false, isFetching: false });
       })
       .catch((error) => {
         alert('Desculpe, mas não conseguimos estabelecer conexão com o nosso servidor.');
@@ -91,7 +86,7 @@ class StudentListPage extends React.Component {
       <>
         <header className='main-header'>Lista de Alunos</header>
         <div className='padding-left-right-20'>
-          <div className='top-actions'>
+          <div className='card'>
             <form onSubmit={this.onSubmitFormSearch} id='formSearchStudent' className='form-search'>
               <input
                 type='text'
@@ -112,40 +107,41 @@ class StudentListPage extends React.Component {
               Cadastrar aluno
             </Link>
           </div>
-
-          <table id='studentList' className='table-list'>
-            <thead>
-              <tr>
-                <th>Registro Acadêmico</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.studentList.map((student) => {
-                return (
-                  <tr key={student.ra}>
-                    <td>{student.ra}</td>
-                    <td>{student.nome}</td>
-                    <td>{student.cpf}</td>
-                    <td>
-                      <Link to={`/student/edit/${student.ra}`}>Editar</Link>
-                      <a
-                        className='removeStudent'
-                        onClick={() => {
-                          this.onClickRemoveStudent(student.ra);
-                        }}
-                        href='/#'
-                      >
-                        Excluir
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className='card'>
+            <table id='studentList' className='table-list'>
+              <thead>
+                <tr>
+                  <th>Registro Acadêmico</th>
+                  <th>Nome</th>
+                  <th>CPF</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.studentList.map((student) => {
+                  return (
+                    <tr key={student.ra}>
+                      <td>{student.ra}</td>
+                      <td>{student.nome}</td>
+                      <td>{student.cpf}</td>
+                      <td>
+                        <Link className='action-link' to={`/student/edit/${student.ra}`}>Editar</Link>
+                        <a
+                          className='removeStudent action-link'
+                          onClick={() => {
+                            this.onClickRemoveStudent(student.ra);
+                          }}
+                          href='/#'
+                        >
+                          Excluir
+                        </a>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </>
     );
